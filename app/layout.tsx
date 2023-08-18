@@ -1,8 +1,11 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import amplifyconfig from "../src/aws-exports";
+import { Amplify } from "aws-amplify";
 
 const inter = Inter({ subsets: ['latin'] })
+Amplify.configure({ ...amplifyconfig, ssr: true });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
