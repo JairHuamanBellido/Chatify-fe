@@ -1,0 +1,25 @@
+{
+  "authSelections": "userPoolOnly",
+  "resourceName": "chatify749d7f24",
+  "serviceType": "imported",
+  "region": "us-east-2",
+  "usernameAttributes": [
+    "email"
+  ],
+  "authProvidersUserPool": [
+    "Google"
+  ],
+  "requiredAttributes": [
+    "name",
+    "email"
+  ],
+  "passwordPolicyMinLength": 8,
+  "passwordPolicyCharacters": [
+    "Requires Lowercase",
+    "Requires Uppercase",
+    "Requires Numbers",
+    "Requires Symbols"
+  ],
+  "mfaConfiguration": "OFF",
+  "mfaTypes": []
+}

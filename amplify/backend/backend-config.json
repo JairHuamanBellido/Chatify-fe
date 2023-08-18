@@ -1,0 +1,45 @@
+{
+  "auth": {
+    "chatify749d7f24": {
+      "customAuth": false,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "serviceType": "imported"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_auth_chatify749d7f24_nativeClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatify749d7f24"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatify749d7f24_userPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatify749d7f24"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatify749d7f24_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatify749d7f24"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatify749d7f24_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatify749d7f24"
+        }
+      ]
+    }
+  }
+}
