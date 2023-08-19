@@ -2,28 +2,14 @@
 import { ISignUpUser } from "@/src/interfaces/ISignUpUser";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
-import PasswordValidator from "password-validator";
 import { cn } from "@/lib/utils";
 import PasswordPolicyLabel from "../password-policy";
 import { Label } from "../ui/label";
 import TypographyMuted from "../typography/muted";
 import { Button } from "../ui/button";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-const passwordPolicy = new PasswordValidator();
-passwordPolicy.is().min(8);
-passwordPolicy.is().lowercase();
-passwordPolicy.is().uppercase();
-passwordPolicy.is().symbols();
-passwordPolicy.is().digits(1);
-
-const SignUpSchema = z.object({
-  name: z.string().nonempty(),
-  email: z.string().email().nonempty(),
-  password: z.string().nonempty(),
-  repeatPassword: z.string().nonempty(),
-});
+import { signUpPasswordPolicy } from "@/src/utils/SignUpPasswordPolicy";
+import { SignUpSchema } from "@/src/schema/SignUpSchema";
 
 export default function RegisterForm() {
   const {
@@ -35,9 +21,12 @@ export default function RegisterForm() {
     defaultValues: { email: "", name: "", password: "", repeatPassword: "" },
     resolver: zodResolver(SignUpSchema),
   });
-  const passwordPolicyReviewer = passwordPolicy.validate(watch("password"), {
-    list: true,
-  }) as any[];
+  const passwordPolicyReviewer = signUpPasswordPolicy.validate(
+    watch("password"),
+    {
+      list: true,
+    }
+  ) as any[];
 
   const passwordMissMatch =
     watch("password") !== watch("repeatPassword") && !!watch("repeatPassword");
