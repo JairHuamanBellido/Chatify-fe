@@ -89,7 +89,16 @@ export default function RegisterForm() {
       <PasswordPolicyLabel isCorrect={!passwordPolicyReviewer.includes("min")}>
         At least 8 char
       </PasswordPolicyLabel>
-      <Button disabled={!isDirty || !isValid} className="mt-4" type="submit">
+      <Button
+        disabled={
+          !isDirty ||
+          !isValid ||
+          !signUpPasswordPolicy.validate(watch("password")) ||
+          passwordMissMatch
+        }
+        className="mt-4"
+        type="submit"
+      >
         Submit
       </Button>
     </form>
