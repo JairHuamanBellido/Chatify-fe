@@ -12,6 +12,7 @@
     "@aws-amplify/ui-react": "^0.0.0-next-00f2344-20230817202124",
     "@hookform/resolvers": "^3.2.0",
     "@radix-ui/react-label": "^2.0.2",
+    "@tanstack/react-query": "^4.33.0",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
