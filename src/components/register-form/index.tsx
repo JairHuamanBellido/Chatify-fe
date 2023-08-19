@@ -8,8 +8,8 @@ import { Label } from "../ui/label";
 import TypographyMuted from "../typography/muted";
 import { Button } from "../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpPasswordPolicy } from "@/src/utils/SignUpPasswordPolicy";
-import { SignUpSchema } from "@/src/schema/SignUpSchema";
+import { signUpPasswordPolicy } from "@/src/utils/signUpPasswordPolicy";
+import { SignUpSchema } from "@/src/schema/SignUp/SignUpSchema";
 import { useMutation } from "@tanstack/react-query";
 import signUpUserAmplify from "@/src/services/user/mutations/signUpUserAmplify";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
@@ -51,11 +51,21 @@ export default function RegisterForm() {
     >
       <div className="flex flex-col gap-y-4 mb-2">
         <Label htmlFor="name">Name</Label>
-        <Input {...register("name")} placeholder="Full name" />
+        <Input
+          aria-label="name"
+          {...register("name")}
+          placeholder="Full name"
+        />
         <Label htmlFor="email">Email</Label>
-        <Input {...register("email")} type="email" placeholder="Email" />
+        <Input
+          aria-label="email"
+          {...register("email")}
+          type="email"
+          placeholder="Email"
+        />
         <Label htmlFor="password">Password</Label>
         <Input
+          aria-label="password"
           {...register("password")}
           type="password"
           placeholder="Password"
@@ -67,6 +77,7 @@ export default function RegisterForm() {
           Confirm password
         </Label>
         <Input
+          aria-label="repeat-password"
           {...register("repeatPassword")}
           type="password"
           placeholder="Repeat password"

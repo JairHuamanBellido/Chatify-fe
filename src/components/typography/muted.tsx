@@ -1,9 +1,17 @@
 import { cn } from "@/lib/utils";
+import React from "react";
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLParagraphElement>  {
   children: React.ReactNode;
-  className?:string;
 }
-export default function TypographyMuted({ children,className = '' }: Props) {
-  return <p className={cn("text-sm text-muted-foreground",className)}>{children}</p>;
+export default function TypographyMuted({
+  children,
+  className = "",
+  ...rest
+}: Props) {
+  return (
+    <p {...rest} className={cn("text-sm text-muted-foreground", className)}>
+      {children}
+    </p>
+  );
 }

@@ -8,10 +8,14 @@ interface Props {
 export default function PasswordPolicyLabel({ isCorrect, children }: Props) {
   return (
     <TypographyMuted
-      className={cn({
-        "text-gray-400": !isCorrect,
-        "text-green-600": isCorrect,
-      }, "flex items-center gap-x-2")}
+      data-accepted-password-policy={isCorrect}
+      className={cn(
+        {
+          "text-gray-400": !isCorrect,
+          "text-green-600": isCorrect,
+        },
+        "flex items-center gap-x-2"
+      )}
     >
       {isCorrect ? <CheckIcon width={16} /> : <XIcon width={16} />}
       <span>{children}</span>
