@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^0.0.0-next-00f2344-20230817202124",
+    "@hookform/resolvers": "^3.2.0",
     "@radix-ui/react-label": "^2.0.2",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
@@ -31,6 +32,7 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.6",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "zod": "^3.22.2"
   }
 }

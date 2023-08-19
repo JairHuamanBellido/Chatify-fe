@@ -7,6 +7,9 @@ import { cn } from "@/lib/utils";
 import PasswordPolicyLabel from "../password-policy";
 import { Label } from "../ui/label";
 import TypographyMuted from "../typography/muted";
+import { Button } from "../ui/button";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const passwordPolicy = new PasswordValidator();
 passwordPolicy.is().min(8);
@@ -15,9 +18,22 @@ passwordPolicy.is().uppercase();
 passwordPolicy.is().symbols();
 passwordPolicy.is().digits(1);
 
+const SignUpSchema = z.object({
+  name: z.string().nonempty(),
+  email: z.string().email().nonempty(),
+  password: z.string().nonempty(),
+  repeatPassword: z.string().nonempty(),
+});
+
 export default function RegisterForm() {
-  const { register, handleSubmit, watch } = useForm<ISignUpUser>({
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { isDirty, isValid },
+  } = useForm<ISignUpUser>({
     defaultValues: { email: "", name: "", password: "", repeatPassword: "" },
+    resolver: zodResolver(SignUpSchema),
   });
   const passwordPolicyReviewer = passwordPolicy.validate(watch("password"), {
     list: true,
@@ -84,6 +100,9 @@ export default function RegisterForm() {
       <PasswordPolicyLabel isCorrect={!passwordPolicyReviewer.includes("min")}>
         At least 8 char
       </PasswordPolicyLabel>
+      <Button disabled={!isDirty || !isValid} className="mt-4" type="submit">
+        Submit
+      </Button>
     </form>
   );
 }
