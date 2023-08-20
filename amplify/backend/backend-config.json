@@ -1,6 +1,6 @@
 {
   "auth": {
-    "chatify749d7f24": {
+    "chatifycc8f6a04": {
       "customAuth": false,
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
@@ -9,35 +9,99 @@
     }
   },
   "parameters": {
-    "AMPLIFY_auth_chatify749d7f24_nativeClientId": {
+    "AMPLIFY_auth_chatifycc8f6a04_allowUnauthenticatedIdentities": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "chatify749d7f24"
+          "resourceName": "chatifycc8f6a04"
         }
       ]
     },
-    "AMPLIFY_auth_chatify749d7f24_userPoolId": {
+    "AMPLIFY_auth_chatifycc8f6a04_authRoleArn": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "chatify749d7f24"
+          "resourceName": "chatifycc8f6a04"
         }
       ]
     },
-    "AMPLIFY_auth_chatify749d7f24_userPoolName": {
+    "AMPLIFY_auth_chatifycc8f6a04_authRoleName": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "chatify749d7f24"
+          "resourceName": "chatifycc8f6a04"
         }
       ]
     },
-    "AMPLIFY_auth_chatify749d7f24_webClientId": {
+    "AMPLIFY_auth_chatifycc8f6a04_googleClientId": {
       "usedBy": [
         {
           "category": "auth",
-          "resourceName": "chatify749d7f24"
+          "resourceName": "chatifycc8f6a04"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatifycc8f6a04_identityPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatifycc8f6a04"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatifycc8f6a04_identityPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatifycc8f6a04"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatifycc8f6a04_nativeClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatifycc8f6a04"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatifycc8f6a04_unauthRoleArn": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatifycc8f6a04"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatifycc8f6a04_unauthRoleName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatifycc8f6a04"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatifycc8f6a04_userPoolId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatifycc8f6a04"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatifycc8f6a04_userPoolName": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatifycc8f6a04"
+        }
+      ]
+    },
+    "AMPLIFY_auth_chatifycc8f6a04_webClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "chatifycc8f6a04"
         }
       ]
     }
