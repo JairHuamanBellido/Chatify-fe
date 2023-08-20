@@ -1,6 +1,6 @@
 {
-  "authSelections": "userPoolOnly",
-  "resourceName": "chatify749d7f24",
+  "authSelections": "identityPoolAndUserPool",
+  "resourceName": "chatifycc8f6a04",
   "serviceType": "imported",
   "region": "us-east-2",
   "usernameAttributes": [
@@ -21,5 +21,8 @@
     "Requires Symbols"
   ],
   "mfaConfiguration": "OFF",
+  "autoVerifiedAttributes": [
+    "email"
+  ],
   "mfaTypes": []
 }
