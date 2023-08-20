@@ -1,8 +1,6 @@
 import { renderAllProviders } from "@/src/utils/renderAllProviders";
 import RegisterForm from "..";
 import { useMutation } from "@tanstack/react-query";
-import signUpUserAmplify from "@/src/services/user/mutations/signUpUserAmplify";
-import { Auth } from "aws-amplify";
 import { fireEvent, screen } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 
@@ -11,8 +9,6 @@ jest.mock("aws-amplify");
 
 const mockUseMutation = useMutation as jest.Mock<any>;
 
-const mocksignUpUserAmplify = signUpUserAmplify as jest.Mock;
-const mockAuthSignUpAmplify = Auth.signUp as unknown as jest.Mock;
 describe("<RegisterForm", () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -98,7 +94,9 @@ describe("<RegisterForm", () => {
       fireEvent.change(repeatPasswordInput, { target: { value: "ABCDfgh1@" } });
     });
 
-    const submitButton = screen.getByRole("button") as HTMLButtonElement;
+    const submitButton = screen.getByRole("button", {
+      name: "Sign Up",
+    }) as HTMLButtonElement;
     expect(submitButton.disabled).not.toBeTruthy();
   });
 
@@ -129,7 +127,9 @@ describe("<RegisterForm", () => {
       fireEvent.change(repeatPasswordInput, { target: { value: "ABCDfgh1" } });
     });
 
-    const submitButton = screen.getByRole("button") as HTMLButtonElement;
+    const submitButton = screen.getByRole("button", {
+      name: "Sign Up",
+    }) as HTMLButtonElement;
     expect(submitButton.disabled).toBeTruthy();
   });
 
@@ -160,7 +160,9 @@ describe("<RegisterForm", () => {
       fireEvent.change(repeatPasswordInput, { target: { value: "ABCDfgh1@" } });
     });
 
-    const submitButton = screen.getByRole("button") as HTMLButtonElement;
+    const submitButton = screen.getByRole("button", {
+      name: "Sign Up",
+    }) as HTMLButtonElement;
     expect(submitButton.disabled).toBeTruthy();
   });
 
@@ -192,7 +194,9 @@ describe("<RegisterForm", () => {
       fireEvent.change(repeatPasswordInput, { target: { value: "ABCDfgh1@" } });
     });
 
-    const submitButton = screen.getByRole("button") as HTMLButtonElement;
+    const submitButton = screen.getByRole("button", {
+      name: "Please wait",
+    }) as HTMLButtonElement;
 
     // Expect
     expect(screen.getByText("Please wait")).toBeInTheDocument();
@@ -263,5 +267,23 @@ describe("<RegisterForm", () => {
     expect(
       screen.getByText("Account was created successfully!")
     ).toBeInTheDocument();
+  });
+
+  it("should display a Google Sign In Button", async () => {
+    // Arrange
+    mockUseMutation.mockImplementation(() => ({
+      mutate: () => null,
+      error: false,
+      isError: false,
+      isLoading: false,
+      isSuccess: false,
+    }));
+    renderAllProviders(<RegisterForm />);
+    const submitButton = screen.getByRole("button", {
+      name: "Sign Up with Google",
+    }) as HTMLButtonElement;
+
+    // Expect
+    expect(submitButton).toBeInTheDocument();
   });
 });
