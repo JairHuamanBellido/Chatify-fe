@@ -4,12 +4,9 @@ import { useMutation } from "@tanstack/react-query";
 import { fireEvent, screen } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 
-jest.mock("@/src/services/user/mutations/signUpUserAmplify");
-jest.mock("aws-amplify");
-
 const mockUseMutation = useMutation as jest.Mock<any>;
 
-describe("<RegisterForm", () => {
+describe("<RegisterForm />", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });

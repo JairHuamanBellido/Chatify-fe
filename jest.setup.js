@@ -14,5 +14,9 @@ jest.mock("@tanstack/react-query", (rest) => ({
     return <>{children}</>;
   },
   QueryClient: jest.fn(),
-  useMutation: jest.fn()
+  useMutation: jest.fn(),
+}));
+
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({ push: jest.fn() }),
 }));
