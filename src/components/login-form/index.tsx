@@ -36,6 +36,7 @@ export default function LoginForm() {
           <Label htmlFor="email">Email</Label>
           <Input
             {...register("email")}
+            aria-label="email"
             type="text"
             placeholder="Email"
             name="email"
@@ -47,6 +48,7 @@ export default function LoginForm() {
             type="password"
             placeholder="Password"
             name="password"
+            aria-label="password"
             required
           />
         </div>
