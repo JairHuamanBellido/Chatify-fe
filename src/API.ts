@@ -79,20 +79,39 @@ export type ChatRoom = {
   id: string,
   name: string,
   description?: string | null,
-  admin?: Admin | null,
+  admin?: User | null,
+  messages?: ModelMessageConnection | null,
   createdAt: string,
   updatedAt: string,
   chatRoomAdminId?: string | null,
   owner?: string | null,
 };
 
-export type Admin = {
-  __typename: "Admin",
+export type User = {
+  __typename: "User",
   id: string,
   name: string,
   email: string,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
+};
+
+export type ModelMessageConnection = {
+  __typename: "ModelMessageConnection",
+  items:  Array<Message | null >,
+  nextToken?: string | null,
+};
+
+export type Message = {
+  __typename: "Message",
+  id: string,
+  text?: string | null,
+  sender?: User | null,
+  createdAt: string,
+  updatedAt: string,
+  chatRoomMessagesId?: string | null,
+  messageSenderId?: string | null,
   owner?: string | null,
 };
 
@@ -107,27 +126,54 @@ export type DeleteChatRoomInput = {
   id: string,
 };
 
-export type CreateAdminInput = {
+export type CreateUserInput = {
   id?: string | null,
   name: string,
   email: string,
 };
 
-export type ModelAdminConditionInput = {
+export type ModelUserConditionInput = {
   name?: ModelStringInput | null,
   email?: ModelStringInput | null,
-  and?: Array< ModelAdminConditionInput | null > | null,
-  or?: Array< ModelAdminConditionInput | null > | null,
-  not?: ModelAdminConditionInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
 };
 
-export type UpdateAdminInput = {
+export type UpdateUserInput = {
   id: string,
   name?: string | null,
   email?: string | null,
 };
 
-export type DeleteAdminInput = {
+export type DeleteUserInput = {
+  id: string,
+};
+
+export type CreateMessageInput = {
+  id?: string | null,
+  text?: string | null,
+  chatRoomMessagesId?: string | null,
+  messageSenderId?: string | null,
+};
+
+export type ModelMessageConditionInput = {
+  text?: ModelStringInput | null,
+  and?: Array< ModelMessageConditionInput | null > | null,
+  or?: Array< ModelMessageConditionInput | null > | null,
+  not?: ModelMessageConditionInput | null,
+  chatRoomMessagesId?: ModelIDInput | null,
+  messageSenderId?: ModelIDInput | null,
+};
+
+export type UpdateMessageInput = {
+  id: string,
+  text?: string | null,
+  chatRoomMessagesId?: string | null,
+  messageSenderId?: string | null,
+};
+
+export type DeleteMessageInput = {
   id: string,
 };
 
@@ -147,19 +193,29 @@ export type ModelChatRoomConnection = {
   nextToken?: string | null,
 };
 
-export type ModelAdminFilterInput = {
+export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   email?: ModelStringInput | null,
-  and?: Array< ModelAdminFilterInput | null > | null,
-  or?: Array< ModelAdminFilterInput | null > | null,
-  not?: ModelAdminFilterInput | null,
+  and?: Array< ModelUserFilterInput | null > | null,
+  or?: Array< ModelUserFilterInput | null > | null,
+  not?: ModelUserFilterInput | null,
 };
 
-export type ModelAdminConnection = {
-  __typename: "ModelAdminConnection",
-  items:  Array<Admin | null >,
+export type ModelUserConnection = {
+  __typename: "ModelUserConnection",
+  items:  Array<User | null >,
   nextToken?: string | null,
+};
+
+export type ModelMessageFilterInput = {
+  id?: ModelIDInput | null,
+  text?: ModelStringInput | null,
+  and?: Array< ModelMessageFilterInput | null > | null,
+  or?: Array< ModelMessageFilterInput | null > | null,
+  not?: ModelMessageFilterInput | null,
+  chatRoomMessagesId?: ModelIDInput | null,
+  messageSenderId?: ModelIDInput | null,
 };
 
 export type ModelSubscriptionChatRoomFilterInput = {
@@ -200,12 +256,19 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionAdminFilterInput = {
+export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionAdminFilterInput | null > | null,
-  or?: Array< ModelSubscriptionAdminFilterInput | null > | null,
+  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
+};
+
+export type ModelSubscriptionMessageFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  text?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMessageFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMessageFilterInput | null > | null,
 };
 
 export type CreateChatRoomMutationVariables = {
@@ -220,13 +283,27 @@ export type CreateChatRoomMutation = {
     name: string,
     description?: string | null,
     admin?:  {
-      __typename: "Admin",
+      __typename: "User",
       id: string,
       name: string,
       email: string,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
+    } | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      items:  Array< {
+        __typename: "Message",
+        id: string,
+        text?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        chatRoomMessagesId?: string | null,
+        messageSenderId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -247,13 +324,27 @@ export type UpdateChatRoomMutation = {
     name: string,
     description?: string | null,
     admin?:  {
-      __typename: "Admin",
+      __typename: "User",
       id: string,
       name: string,
       email: string,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
+    } | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      items:  Array< {
+        __typename: "Message",
+        id: string,
+        text?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        chatRoomMessagesId?: string | null,
+        messageSenderId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -274,7 +365,98 @@ export type DeleteChatRoomMutation = {
     name: string,
     description?: string | null,
     admin?:  {
-      __typename: "Admin",
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      items:  Array< {
+        __typename: "Message",
+        id: string,
+        text?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        chatRoomMessagesId?: string | null,
+        messageSenderId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    chatRoomAdminId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateUserMutationVariables = {
+  input: CreateUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type CreateUserMutation = {
+  createUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateUserMutationVariables = {
+  input: UpdateUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type UpdateUserMutation = {
+  updateUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteUserMutationVariables = {
+  input: DeleteUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type DeleteUserMutation = {
+  deleteUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateMessageMutationVariables = {
+  input: CreateMessageInput,
+  condition?: ModelMessageConditionInput | null,
+};
+
+export type CreateMessageMutation = {
+  createMessage?:  {
+    __typename: "Message",
+    id: string,
+    text?: string | null,
+    sender?:  {
+      __typename: "User",
       id: string,
       name: string,
       email: string,
@@ -284,58 +466,62 @@ export type DeleteChatRoomMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    chatRoomAdminId?: string | null,
+    chatRoomMessagesId?: string | null,
+    messageSenderId?: string | null,
     owner?: string | null,
   } | null,
 };
 
-export type CreateAdminMutationVariables = {
-  input: CreateAdminInput,
-  condition?: ModelAdminConditionInput | null,
+export type UpdateMessageMutationVariables = {
+  input: UpdateMessageInput,
+  condition?: ModelMessageConditionInput | null,
 };
 
-export type CreateAdminMutation = {
-  createAdmin?:  {
-    __typename: "Admin",
+export type UpdateMessageMutation = {
+  updateMessage?:  {
+    __typename: "Message",
     id: string,
-    name: string,
-    email: string,
+    text?: string | null,
+    sender?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    chatRoomMessagesId?: string | null,
+    messageSenderId?: string | null,
     owner?: string | null,
   } | null,
 };
 
-export type UpdateAdminMutationVariables = {
-  input: UpdateAdminInput,
-  condition?: ModelAdminConditionInput | null,
+export type DeleteMessageMutationVariables = {
+  input: DeleteMessageInput,
+  condition?: ModelMessageConditionInput | null,
 };
 
-export type UpdateAdminMutation = {
-  updateAdmin?:  {
-    __typename: "Admin",
+export type DeleteMessageMutation = {
+  deleteMessage?:  {
+    __typename: "Message",
     id: string,
-    name: string,
-    email: string,
+    text?: string | null,
+    sender?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
-  } | null,
-};
-
-export type DeleteAdminMutationVariables = {
-  input: DeleteAdminInput,
-  condition?: ModelAdminConditionInput | null,
-};
-
-export type DeleteAdminMutation = {
-  deleteAdmin?:  {
-    __typename: "Admin",
-    id: string,
-    name: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
+    chatRoomMessagesId?: string | null,
+    messageSenderId?: string | null,
     owner?: string | null,
   } | null,
 };
@@ -351,13 +537,27 @@ export type GetChatRoomQuery = {
     name: string,
     description?: string | null,
     admin?:  {
-      __typename: "Admin",
+      __typename: "User",
       id: string,
       name: string,
       email: string,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
+    } | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      items:  Array< {
+        __typename: "Message",
+        id: string,
+        text?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        chatRoomMessagesId?: string | null,
+        messageSenderId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -381,13 +581,17 @@ export type ListChatRoomsQuery = {
       name: string,
       description?: string | null,
       admin?:  {
-        __typename: "Admin",
+        __typename: "User",
         id: string,
         name: string,
         email: string,
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
+      } | null,
+      messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -398,13 +602,13 @@ export type ListChatRoomsQuery = {
   } | null,
 };
 
-export type GetAdminQueryVariables = {
+export type GetUserQueryVariables = {
   id: string,
 };
 
-export type GetAdminQuery = {
-  getAdmin?:  {
-    __typename: "Admin",
+export type GetUserQuery = {
+  getUser?:  {
+    __typename: "User",
     id: string,
     name: string,
     email: string,
@@ -414,22 +618,80 @@ export type GetAdminQuery = {
   } | null,
 };
 
-export type ListAdminsQueryVariables = {
-  filter?: ModelAdminFilterInput | null,
+export type ListUsersQueryVariables = {
+  filter?: ModelUserFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListAdminsQuery = {
-  listAdmins?:  {
-    __typename: "ModelAdminConnection",
+export type ListUsersQuery = {
+  listUsers?:  {
+    __typename: "ModelUserConnection",
     items:  Array< {
-      __typename: "Admin",
+      __typename: "User",
       id: string,
       name: string,
       email: string,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetMessageQueryVariables = {
+  id: string,
+};
+
+export type GetMessageQuery = {
+  getMessage?:  {
+    __typename: "Message",
+    id: string,
+    text?: string | null,
+    sender?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    chatRoomMessagesId?: string | null,
+    messageSenderId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListMessagesQueryVariables = {
+  filter?: ModelMessageFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMessagesQuery = {
+  listMessages?:  {
+    __typename: "ModelMessageConnection",
+    items:  Array< {
+      __typename: "Message",
+      id: string,
+      text?: string | null,
+      sender?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        email: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      chatRoomMessagesId?: string | null,
+      messageSenderId?: string | null,
       owner?: string | null,
     } | null >,
     nextToken?: string | null,
@@ -448,13 +710,27 @@ export type OnCreateChatRoomSubscription = {
     name: string,
     description?: string | null,
     admin?:  {
-      __typename: "Admin",
+      __typename: "User",
       id: string,
       name: string,
       email: string,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
+    } | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      items:  Array< {
+        __typename: "Message",
+        id: string,
+        text?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        chatRoomMessagesId?: string | null,
+        messageSenderId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -475,13 +751,27 @@ export type OnUpdateChatRoomSubscription = {
     name: string,
     description?: string | null,
     admin?:  {
-      __typename: "Admin",
+      __typename: "User",
       id: string,
       name: string,
       email: string,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
+    } | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      items:  Array< {
+        __typename: "Message",
+        id: string,
+        text?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        chatRoomMessagesId?: string | null,
+        messageSenderId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -502,7 +792,98 @@ export type OnDeleteChatRoomSubscription = {
     name: string,
     description?: string | null,
     admin?:  {
-      __typename: "Admin",
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    messages?:  {
+      __typename: "ModelMessageConnection",
+      items:  Array< {
+        __typename: "Message",
+        id: string,
+        text?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        chatRoomMessagesId?: string | null,
+        messageSenderId?: string | null,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    chatRoomAdminId?: string | null,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateUserSubscription = {
+  onCreateUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnUpdateUserSubscription = {
+  onUpdateUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteUserSubscriptionVariables = {
+  filter?: ModelSubscriptionUserFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnDeleteUserSubscription = {
+  onDeleteUser?:  {
+    __typename: "User",
+    id: string,
+    name: string,
+    email: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateMessageSubscriptionVariables = {
+  filter?: ModelSubscriptionMessageFilterInput | null,
+  owner?: string | null,
+};
+
+export type OnCreateMessageSubscription = {
+  onCreateMessage?:  {
+    __typename: "Message",
+    id: string,
+    text?: string | null,
+    sender?:  {
+      __typename: "User",
       id: string,
       name: string,
       email: string,
@@ -512,58 +893,62 @@ export type OnDeleteChatRoomSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    chatRoomAdminId?: string | null,
+    chatRoomMessagesId?: string | null,
+    messageSenderId?: string | null,
     owner?: string | null,
   } | null,
 };
 
-export type OnCreateAdminSubscriptionVariables = {
-  filter?: ModelSubscriptionAdminFilterInput | null,
+export type OnUpdateMessageSubscriptionVariables = {
+  filter?: ModelSubscriptionMessageFilterInput | null,
   owner?: string | null,
 };
 
-export type OnCreateAdminSubscription = {
-  onCreateAdmin?:  {
-    __typename: "Admin",
+export type OnUpdateMessageSubscription = {
+  onUpdateMessage?:  {
+    __typename: "Message",
     id: string,
-    name: string,
-    email: string,
+    text?: string | null,
+    sender?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    chatRoomMessagesId?: string | null,
+    messageSenderId?: string | null,
     owner?: string | null,
   } | null,
 };
 
-export type OnUpdateAdminSubscriptionVariables = {
-  filter?: ModelSubscriptionAdminFilterInput | null,
+export type OnDeleteMessageSubscriptionVariables = {
+  filter?: ModelSubscriptionMessageFilterInput | null,
   owner?: string | null,
 };
 
-export type OnUpdateAdminSubscription = {
-  onUpdateAdmin?:  {
-    __typename: "Admin",
+export type OnDeleteMessageSubscription = {
+  onDeleteMessage?:  {
+    __typename: "Message",
     id: string,
-    name: string,
-    email: string,
+    text?: string | null,
+    sender?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      email: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
-    owner?: string | null,
-  } | null,
-};
-
-export type OnDeleteAdminSubscriptionVariables = {
-  filter?: ModelSubscriptionAdminFilterInput | null,
-  owner?: string | null,
-};
-
-export type OnDeleteAdminSubscription = {
-  onDeleteAdmin?:  {
-    __typename: "Admin",
-    id: string,
-    name: string,
-    email: string,
-    createdAt: string,
-    updatedAt: string,
+    chatRoomMessagesId?: string | null,
+    messageSenderId?: string | null,
     owner?: string | null,
   } | null,
 };

@@ -20,6 +20,20 @@ export const createChatRoom = /* GraphQL */ `
         owner
         __typename
       }
+      messages {
+        items {
+          id
+          text
+          createdAt
+          updatedAt
+          chatRoomMessagesId
+          messageSenderId
+          owner
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomAdminId
@@ -44,6 +58,20 @@ export const updateChatRoom = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        __typename
+      }
+      messages {
+        items {
+          id
+          text
+          createdAt
+          updatedAt
+          chatRoomMessagesId
+          messageSenderId
+          owner
+          __typename
+        }
+        nextToken
         __typename
       }
       createdAt
@@ -72,6 +100,20 @@ export const deleteChatRoom = /* GraphQL */ `
         owner
         __typename
       }
+      messages {
+        items {
+          id
+          text
+          createdAt
+          updatedAt
+          chatRoomMessagesId
+          messageSenderId
+          owner
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomAdminId
@@ -80,12 +122,12 @@ export const deleteChatRoom = /* GraphQL */ `
     }
   }
 `;
-export const createAdmin = /* GraphQL */ `
-  mutation CreateAdmin(
-    $input: CreateAdminInput!
-    $condition: ModelAdminConditionInput
+export const createUser = /* GraphQL */ `
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
   ) {
-    createAdmin(input: $input, condition: $condition) {
+    createUser(input: $input, condition: $condition) {
       id
       name
       email
@@ -96,12 +138,12 @@ export const createAdmin = /* GraphQL */ `
     }
   }
 `;
-export const updateAdmin = /* GraphQL */ `
-  mutation UpdateAdmin(
-    $input: UpdateAdminInput!
-    $condition: ModelAdminConditionInput
+export const updateUser = /* GraphQL */ `
+  mutation UpdateUser(
+    $input: UpdateUserInput!
+    $condition: ModelUserConditionInput
   ) {
-    updateAdmin(input: $input, condition: $condition) {
+    updateUser(input: $input, condition: $condition) {
       id
       name
       email
@@ -112,17 +154,95 @@ export const updateAdmin = /* GraphQL */ `
     }
   }
 `;
-export const deleteAdmin = /* GraphQL */ `
-  mutation DeleteAdmin(
-    $input: DeleteAdminInput!
-    $condition: ModelAdminConditionInput
+export const deleteUser = /* GraphQL */ `
+  mutation DeleteUser(
+    $input: DeleteUserInput!
+    $condition: ModelUserConditionInput
   ) {
-    deleteAdmin(input: $input, condition: $condition) {
+    deleteUser(input: $input, condition: $condition) {
       id
       name
       email
       createdAt
       updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const createMessage = /* GraphQL */ `
+  mutation CreateMessage(
+    $input: CreateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    createMessage(input: $input, condition: $condition) {
+      id
+      text
+      sender {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomMessagesId
+      messageSenderId
+      owner
+      __typename
+    }
+  }
+`;
+export const updateMessage = /* GraphQL */ `
+  mutation UpdateMessage(
+    $input: UpdateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    updateMessage(input: $input, condition: $condition) {
+      id
+      text
+      sender {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomMessagesId
+      messageSenderId
+      owner
+      __typename
+    }
+  }
+`;
+export const deleteMessage = /* GraphQL */ `
+  mutation DeleteMessage(
+    $input: DeleteMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    deleteMessage(input: $input, condition: $condition) {
+      id
+      text
+      sender {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomMessagesId
+      messageSenderId
       owner
       __typename
     }

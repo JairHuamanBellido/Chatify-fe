@@ -20,6 +20,20 @@ export const onCreateChatRoom = /* GraphQL */ `
         owner
         __typename
       }
+      messages {
+        items {
+          id
+          text
+          createdAt
+          updatedAt
+          chatRoomMessagesId
+          messageSenderId
+          owner
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomAdminId
@@ -44,6 +58,20 @@ export const onUpdateChatRoom = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        __typename
+      }
+      messages {
+        items {
+          id
+          text
+          createdAt
+          updatedAt
+          chatRoomMessagesId
+          messageSenderId
+          owner
+          __typename
+        }
+        nextToken
         __typename
       }
       createdAt
@@ -72,6 +100,20 @@ export const onDeleteChatRoom = /* GraphQL */ `
         owner
         __typename
       }
+      messages {
+        items {
+          id
+          text
+          createdAt
+          updatedAt
+          chatRoomMessagesId
+          messageSenderId
+          owner
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomAdminId
@@ -80,12 +122,12 @@ export const onDeleteChatRoom = /* GraphQL */ `
     }
   }
 `;
-export const onCreateAdmin = /* GraphQL */ `
-  subscription OnCreateAdmin(
-    $filter: ModelSubscriptionAdminFilterInput
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
     $owner: String
   ) {
-    onCreateAdmin(filter: $filter, owner: $owner) {
+    onCreateUser(filter: $filter, owner: $owner) {
       id
       name
       email
@@ -96,12 +138,12 @@ export const onCreateAdmin = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateAdmin = /* GraphQL */ `
-  subscription OnUpdateAdmin(
-    $filter: ModelSubscriptionAdminFilterInput
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
     $owner: String
   ) {
-    onUpdateAdmin(filter: $filter, owner: $owner) {
+    onUpdateUser(filter: $filter, owner: $owner) {
       id
       name
       email
@@ -112,17 +154,95 @@ export const onUpdateAdmin = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteAdmin = /* GraphQL */ `
-  subscription OnDeleteAdmin(
-    $filter: ModelSubscriptionAdminFilterInput
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
     $owner: String
   ) {
-    onDeleteAdmin(filter: $filter, owner: $owner) {
+    onDeleteUser(filter: $filter, owner: $owner) {
       id
       name
       email
       createdAt
       updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onCreateMessage = /* GraphQL */ `
+  subscription OnCreateMessage(
+    $filter: ModelSubscriptionMessageFilterInput
+    $owner: String
+  ) {
+    onCreateMessage(filter: $filter, owner: $owner) {
+      id
+      text
+      sender {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomMessagesId
+      messageSenderId
+      owner
+      __typename
+    }
+  }
+`;
+export const onUpdateMessage = /* GraphQL */ `
+  subscription OnUpdateMessage(
+    $filter: ModelSubscriptionMessageFilterInput
+    $owner: String
+  ) {
+    onUpdateMessage(filter: $filter, owner: $owner) {
+      id
+      text
+      sender {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomMessagesId
+      messageSenderId
+      owner
+      __typename
+    }
+  }
+`;
+export const onDeleteMessage = /* GraphQL */ `
+  subscription OnDeleteMessage(
+    $filter: ModelSubscriptionMessageFilterInput
+    $owner: String
+  ) {
+    onDeleteMessage(filter: $filter, owner: $owner) {
+      id
+      text
+      sender {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomMessagesId
+      messageSenderId
       owner
       __typename
     }

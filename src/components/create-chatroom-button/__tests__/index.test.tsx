@@ -101,7 +101,7 @@ describe("<CreateChatRoomButton />", () => {
       fireEvent.click(createButton);
     });
     const loadingButton = screen.getByRole("button", {
-      name: "Please wait",
+      name: "Loading",
     }) as HTMLButtonElement;
 
     // Assert
