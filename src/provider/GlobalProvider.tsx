@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Authenticator } from "@aws-amplify/ui-react";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({defaultOptions:{queries:{refetchOnWindowFocus: false}}});
 
 interface Props {
   children: React.ReactNode;

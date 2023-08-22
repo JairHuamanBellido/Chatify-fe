@@ -7,6 +7,7 @@ jest.mock("@aws-amplify/ui-react", () => ({
       return <>{children}</>;
     },
   },
+  useAuthenticator: jest.fn(),
 }));
 
 jest.mock("@tanstack/react-query", (rest) => ({
@@ -15,6 +16,7 @@ jest.mock("@tanstack/react-query", (rest) => ({
   },
   QueryClient: jest.fn(),
   useMutation: jest.fn(),
+  useQuery: jest.fn(),
 }));
 
 jest.mock("next/navigation", () => ({
