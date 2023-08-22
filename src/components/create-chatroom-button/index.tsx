@@ -1,13 +1,5 @@
 "use client";
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "../ui/alert-dialog";
+
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 
@@ -22,6 +14,14 @@ import { Admin, CreateChatRoomMutation, GetAdminQuery } from "@/src/API";
 import { createChatRoom } from "@/src/graphql/mutations";
 import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
+import { DialogClose, DialogTrigger } from "@radix-ui/react-dialog";
 
 export default function CreateChatRoomButton() {
   const { user } = useAuthenticator();
@@ -62,13 +62,13 @@ export default function CreateChatRoomButton() {
   };
   return (
     <>
-      <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger asChild>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
           <Button variant={"outline"}>Create Chat room</Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>New Chat Room</AlertDialogTitle>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>New Chat Room</DialogTitle>
             <form onSubmit={handleSubmit(onSubmit)} className="pt-4">
               <div className="flex flex-col gap-y-4 mb-4">
                 <Input
@@ -104,8 +104,8 @@ export default function CreateChatRoomButton() {
                   </AlertDescription>
                 </Alert>
               )}
-              <AlertDialogFooter className="mt-8">
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <DialogFooter className="mt-8">
+                <DialogClose className="mr-4">Cancel</DialogClose>
                 <Button type="submit" disabled={isLoading}>
                   {isLoading ? (
                     <>
@@ -116,11 +116,11 @@ export default function CreateChatRoomButton() {
                     <>Create</>
                   )}
                 </Button>
-              </AlertDialogFooter>
+              </DialogFooter>
             </form>
-          </AlertDialogHeader>
-        </AlertDialogContent>
-      </AlertDialog>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
