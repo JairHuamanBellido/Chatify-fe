@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { API } from "aws-amplify";
 import { GraphQLQuery, graphqlOperation } from "@aws-amplify/api";
-import { Admin, CreateChatRoomMutation, GetAdminQuery } from "@/src/API";
+import { CreateChatRoomMutation, GetUserQuery } from "@/src/API";
 import { createChatRoom } from "@/src/graphql/mutations";
 import { Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
@@ -26,7 +26,7 @@ import { DialogClose, DialogTrigger } from "@radix-ui/react-dialog";
 export default function CreateChatRoomButton() {
   const { user } = useAuthenticator();
 
-  const { data: admin } = useQuery<GraphQLQuery<{ data: GetAdminQuery }>>([
+  const { data: admin } = useQuery<GraphQLQuery<{ data: GetUserQuery }>>([
     "user-data",
     user?.getSignInUserSession()?.getIdToken()?.payload.sub ?? "",
   ]);
@@ -46,7 +46,7 @@ export default function CreateChatRoomButton() {
           input: {
             name: payload.name,
             description: payload.description,
-            chatRoomAdminId: payload.admin.id,
+            chatRoomAdminId: admin?.data.getUser?.id,
           },
         })
       )
@@ -54,8 +54,6 @@ export default function CreateChatRoomButton() {
   const [open, setOpen] = useState(false);
 
   const onSubmit = (data: ICreateChatRoom) => {
-    data.admin = admin?.data.getAdmin as Admin;
-
     mutate(data, {
       onError: (error) => error,
     });
@@ -110,7 +108,7 @@ export default function CreateChatRoomButton() {
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Please wait
+                      Loading
                     </>
                   ) : (
                     <>Create</>

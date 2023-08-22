@@ -1,9 +1,10 @@
 "use client";
-import { CreateAdminMutation, GetAdminQuery } from "@/src/API";
+import { CreateUserMutation, GetUserQuery } from "@/src/API";
 import CreateChatRoomButton from "@/src/components/create-chatroom-button";
 import { TypographyH2 } from "@/src/components/typography/h2";
-import { createAdmin } from "@/src/graphql/mutations";
-import { getAdmin } from "@/src/graphql/queries";
+import { createUser } from "@/src/graphql/mutations";
+import { getUser } from "@/src/graphql/queries";
+
 import { GraphQLQuery, graphqlOperation } from "@aws-amplify/api";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { useQuery } from "@tanstack/react-query";
@@ -21,14 +22,14 @@ export default function Home() {
       user?.getSignInUserSession()?.getIdToken()?.payload.sub ?? "",
     ],
     queryFn: async () => {
-      const res = await API.graphql<GraphQLQuery<GetAdminQuery>>(
-        graphqlOperation(getAdmin, {
+      const res = await API.graphql<GraphQLQuery<GetUserQuery>>(
+        graphqlOperation(getUser, {
           id: user.getSignInUserSession()?.getIdToken()?.payload.sub,
         })
       );
-      if (!res.data?.getAdmin) {
-        const newAdmin = await API.graphql<GraphQLQuery<CreateAdminMutation>>(
-          graphqlOperation(createAdmin, {
+      if (!res.data?.getUser) {
+        const newAdmin = await API.graphql<GraphQLQuery<CreateUserMutation>>(
+          graphqlOperation(createUser, {
             input: {
               id: user?.getSignInUserSession()?.getIdToken()?.payload.sub,
               name: user?.getSignInUserSession()?.getIdToken()?.payload.name,

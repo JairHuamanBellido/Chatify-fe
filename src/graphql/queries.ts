@@ -17,6 +17,20 @@ export const getChatRoom = /* GraphQL */ `
         owner
         __typename
       }
+      messages {
+        items {
+          id
+          text
+          createdAt
+          updatedAt
+          chatRoomMessagesId
+          messageSenderId
+          owner
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomAdminId
@@ -45,6 +59,10 @@ export const listChatRooms = /* GraphQL */ `
           owner
           __typename
         }
+        messages {
+          nextToken
+          __typename
+        }
         createdAt
         updatedAt
         chatRoomAdminId
@@ -56,9 +74,9 @@ export const listChatRooms = /* GraphQL */ `
     }
   }
 `;
-export const getAdmin = /* GraphQL */ `
-  query GetAdmin($id: ID!) {
-    getAdmin(id: $id) {
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
       id
       name
       email
@@ -69,19 +87,73 @@ export const getAdmin = /* GraphQL */ `
     }
   }
 `;
-export const listAdmins = /* GraphQL */ `
-  query ListAdmins(
-    $filter: ModelAdminFilterInput
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listAdmins(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         name
         email
         createdAt
         updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getMessage = /* GraphQL */ `
+  query GetMessage($id: ID!) {
+    getMessage(id: $id) {
+      id
+      text
+      sender {
+        id
+        name
+        email
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      createdAt
+      updatedAt
+      chatRoomMessagesId
+      messageSenderId
+      owner
+      __typename
+    }
+  }
+`;
+export const listMessages = /* GraphQL */ `
+  query ListMessages(
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        text
+        sender {
+          id
+          name
+          email
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
+        createdAt
+        updatedAt
+        chatRoomMessagesId
+        messageSenderId
         owner
         __typename
       }
