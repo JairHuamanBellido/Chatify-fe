@@ -1,6 +1,7 @@
 "use client";
 import { CreateUserMutation, GetUserQuery } from "@/src/API";
 import CreateChatRoomButton from "@/src/components/create-chatroom-button";
+import ListChatRooms from "@/src/components/list-chat-rooms";
 import { TypographyH2 } from "@/src/components/typography/h2";
 import { createUser } from "@/src/graphql/mutations";
 import { getUser } from "@/src/graphql/queries";
@@ -53,9 +54,12 @@ export default function Home() {
           Home page{" "}
           {user?.getSignInUserSession()?.getIdToken()?.payload.name ?? ""}
         </h2>
-        <nav className="flex justify-between">
-          <TypographyH2>Chats</TypographyH2>
-          <CreateChatRoomButton />
+        <nav className="flex flex-col">
+          <div className="flex justify-between w-full">
+            <TypographyH2>Chats</TypographyH2>
+            <CreateChatRoomButton />
+          </div>
+          <ListChatRooms />
         </nav>
       </main>
     );
