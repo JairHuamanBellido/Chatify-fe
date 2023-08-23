@@ -17,7 +17,7 @@ export default function ListMessages({ messages }: Props) {
       {!messages.length ? (
         <div className="flex flex-col gap-y-2 justify-center items-center text-foreground/30">
           <CircleOff></CircleOff>
-          <TypographyMuted className="text-inherit">There is no messages</TypographyMuted>
+          <TypographyMuted className="text-inherit">There are no messages</TypographyMuted>
         </div>
       ) : (
         <TypographySmall>All messages</TypographySmall>
