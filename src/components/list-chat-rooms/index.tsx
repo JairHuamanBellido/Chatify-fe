@@ -6,7 +6,6 @@ import { API } from "aws-amplify";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -18,7 +17,6 @@ import Link from "next/link";
 export default function ListChatRooms() {
   const {
     isLoading,
-    isError,
     isSuccess,
     data: chatrooms,
   } = useQuery(
@@ -30,7 +28,7 @@ export default function ListChatRooms() {
   );
 
   if (isLoading) {
-    return <p>Cargando....</p>;
+    return <p>Loading</p>;
   }
 
   if (isSuccess) {
@@ -58,4 +56,5 @@ export default function ListChatRooms() {
       </Table>
     );
   }
+  return <p>Something went wrong!</p>;
 }
