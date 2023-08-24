@@ -3,7 +3,7 @@ import { Mulish } from "next/font/google";
 
 import LoginForm from "@/src/components/login-form";
 import { AspectRatio } from "@/src/components/ui/aspect-ratio";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { TypographyH1 } from "@/src/components/typography/h1";
 import { cn } from "@/lib/utils";
 import { TypographyParagraph } from "@/src/components/typography/paragraph";
@@ -32,10 +32,12 @@ export default function LoginPage() {
       <div className="w-1/2 h-screen relative">
         <AspectRatio className="h-screen">
           <Image
-            fill={true}
             src={URL_IMAGE}
             alt="login-image"
+            className="w-full h-full"
             objectFit="cover"
+            layout="fill"
+            priority
           />
         </AspectRatio>
       </div>
