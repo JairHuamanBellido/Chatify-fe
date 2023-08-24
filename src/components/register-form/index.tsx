@@ -47,42 +47,51 @@ export default function RegisterForm() {
     });
   };
   return (
-    <div className="w-[600px] mx-auto">
+    <div>
       <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col">
-        <div className="flex flex-col gap-y-4 mb-2">
-          <Label htmlFor="name">Name</Label>
-          <Input
-            aria-label="name"
-            {...register("name")}
-            placeholder="Full name"
-          />
-          <Label htmlFor="email">Email</Label>
-          <Input
-            aria-label="email"
-            {...register("email")}
-            type="email"
-            placeholder="Email"
-          />
-          <Label htmlFor="password">Password</Label>
-          <Input
-            aria-label="password"
-            {...register("password")}
-            type="password"
-            placeholder="Password"
-          />
-          <Label
-            className={cn({ "text-red-500": passwordMissMatch })}
-            htmlFor="repeatPassword"
-          >
-            Confirm password
-          </Label>
-          <Input
-            aria-label="repeat-password"
-            {...register("repeatPassword")}
-            type="password"
-            placeholder="Repeat password"
-            className={cn({ "border-red-500": passwordMissMatch })}
-          />
+        <div className="flex flex-col gap-y-6 mb-2">
+          <div className="flex flex-col gap-y-4">
+            <Label htmlFor="name">Name</Label>
+            <Input
+              aria-label="name"
+              {...register("name")}
+              placeholder="Full name"
+            />
+          </div>
+
+          <div className="flex flex-col gap-y-4">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              aria-label="email"
+              {...register("email")}
+              type="email"
+              placeholder="Email"
+            />
+          </div>
+          <div className="flex flex-col gap-y-4">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              aria-label="password"
+              {...register("password")}
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+          <div className="flex flex-col gap-y-4">
+            <Label
+              className={cn({ "text-red-500": passwordMissMatch })}
+              htmlFor="repeatPassword"
+            >
+              Confirm password
+            </Label>
+            <Input
+              aria-label="repeat-password"
+              {...register("repeatPassword")}
+              type="password"
+              placeholder="Repeat password"
+              className={cn({ "border-red-500": passwordMissMatch })}
+            />
+          </div>
           {passwordMissMatch && (
             <TypographyMuted className="mt-[-12px] text-red-500">
               Password do not match
@@ -114,6 +123,7 @@ export default function RegisterForm() {
         >
           At least 8 char
         </PasswordPolicyLabel>
+
         {isError && (
           <Alert className="mt-4" variant={"destructive"}>
             <AlertTitle>Error</AlertTitle>
@@ -150,7 +160,7 @@ export default function RegisterForm() {
         </Button>
       </form>
 
-      <div className="relative mt-6">
+      <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
@@ -161,6 +171,7 @@ export default function RegisterForm() {
         </div>
       </div>
       <Button
+        className="w-full mb-8"
         onClick={async () => {
           Auth.federatedSignIn({
             provider: CognitoHostedUIIdentityProvider.Google,
