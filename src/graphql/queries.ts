@@ -21,7 +21,9 @@ export const getChatRoom = /* GraphQL */ `
         items {
           id
           text
+          type
           createdAt
+          chatRoomId
           updatedAt
           chatRoomMessagesId
           messageSenderId
@@ -122,7 +124,9 @@ export const getMessage = /* GraphQL */ `
         owner
         __typename
       }
+      type
       createdAt
+      chatRoomId
       updatedAt
       chatRoomMessagesId
       messageSenderId
@@ -150,7 +154,52 @@ export const listMessages = /* GraphQL */ `
           owner
           __typename
         }
+        type
         createdAt
+        chatRoomId
+        updatedAt
+        chatRoomMessagesId
+        messageSenderId
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const messagesByDate = /* GraphQL */ `
+  query MessagesByDate(
+    $type: String!
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    messagesByDate(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        text
+        sender {
+          id
+          name
+          email
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
+        type
+        createdAt
+        chatRoomId
         updatedAt
         chatRoomMessagesId
         messageSenderId

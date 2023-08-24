@@ -22,4 +22,7 @@ type Message
   id: ID!
   text: String
   sender: User @hasOne
+  type: String! @index(name: "messagesByDate", queryField: "messagesByDate", sortKeyFields: ["createdAt"])
+  createdAt: String!
+  chatRoomId: String!
 }
