@@ -24,7 +24,9 @@ export const onCreateChatRoom = /* GraphQL */ `
         items {
           id
           text
+          type
           createdAt
+          chatRoomId
           updatedAt
           chatRoomMessagesId
           messageSenderId
@@ -64,7 +66,9 @@ export const onUpdateChatRoom = /* GraphQL */ `
         items {
           id
           text
+          type
           createdAt
+          chatRoomId
           updatedAt
           chatRoomMessagesId
           messageSenderId
@@ -104,7 +108,9 @@ export const onDeleteChatRoom = /* GraphQL */ `
         items {
           id
           text
+          type
           createdAt
+          chatRoomId
           updatedAt
           chatRoomMessagesId
           messageSenderId
@@ -187,7 +193,9 @@ export const onCreateMessage = /* GraphQL */ `
         owner
         __typename
       }
+      type
       createdAt
+      chatRoomId
       updatedAt
       chatRoomMessagesId
       messageSenderId
@@ -213,7 +221,9 @@ export const onUpdateMessage = /* GraphQL */ `
         owner
         __typename
       }
+      type
       createdAt
+      chatRoomId
       updatedAt
       chatRoomMessagesId
       messageSenderId
@@ -239,7 +249,9 @@ export const onDeleteMessage = /* GraphQL */ `
         owner
         __typename
       }
+      type
       createdAt
+      chatRoomId
       updatedAt
       chatRoomMessagesId
       messageSenderId
