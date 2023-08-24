@@ -4,12 +4,12 @@ import { screen } from "@testing-library/react";
 
 describe("<SendMessageInput />", () => {
   it("should render correctly", () => {
-    renderAllProviders(<SendMessageInput />);
+    renderAllProviders(<SendMessageInput chatRoomId="id-chat" />);
   });
 
   it("should display an input and submit button", () => {
     // Arrange
-    renderAllProviders(<SendMessageInput />);
+    renderAllProviders(<SendMessageInput chatRoomId="id-chat" />);
 
     // Assert
     expect(screen.getByRole("textbox")).toBeInTheDocument();

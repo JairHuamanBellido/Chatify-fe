@@ -56,10 +56,10 @@ describe("<LoginForm />", () => {
     renderAllProviders(<LoginForm />);
 
     // Act
-    const loadingButton = screen.getByRole("button", { name: "Please wait" });
+    const loadingButton = screen.getByRole("button", { name: "Loading..." });
 
     // Assert
-    expect(screen.getByText("Please wait")).toBeInTheDocument();
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
     expect(loadingButton).toBeInTheDocument();
   });
 
