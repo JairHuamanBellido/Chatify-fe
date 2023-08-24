@@ -8,7 +8,7 @@ export function TypographyParagraph({ children, className, ...rest }: Props) {
   return (
     <p
       {...rest}
-      className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
+      className={cn("leading-7", className)}
     >
       {children}
     </p>

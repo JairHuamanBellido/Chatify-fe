@@ -10,12 +10,13 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Auth } from "aws-amplify";
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 export default function LoginForm() {
   const { register, handleSubmit } = useForm<ISignInUser>({
     defaultValues: { email: "", password: "" },
   });
 
-  const { mutate, error, isError, isLoading } = useMutation(
+  const { mutate, error, isError, isLoading, isSuccess } = useMutation(
     ["signin-user"],
     async (payload: ISignInUser) => await signInUserAmplify(payload)
   );
@@ -30,9 +31,9 @@ export default function LoginForm() {
     });
   };
   return (
-    <div className="w-[600px] mx-auto">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col gap-y-4 mb-4">
+    <div>
+      <form className="flex flex-col gap-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col gap-y-4">
           <Label htmlFor="email">Email</Label>
           <Input
             {...register("email")}
@@ -42,6 +43,8 @@ export default function LoginForm() {
             name="email"
             required
           />
+        </div>
+        <div className="flex flex-col gap-y-4">
           <Label htmlFor="password">Password</Label>
           <Input
             {...register("password")}
@@ -58,18 +61,33 @@ export default function LoginForm() {
             <AlertDescription>{(error as any).message ?? ""}</AlertDescription>
           </Alert>
         )}
-        <Button className="mt-4" disabled={isLoading} type="submit">
+        <Button
+          className={cn({
+            "bg-green-500 text-foreground": isSuccess,
+          })}
+          disabled={isLoading || isSuccess}
+          type="submit"
+        >
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Please wait
+              Loading...
             </>
           ) : (
-            <>Sign In</>
+            <>
+              {isSuccess ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Redirecting to dashboard...
+                </>
+              ) : (
+                <>Sign In</>
+              )}
+            </>
           )}
         </Button>
       </form>
-      <div className="relative mt-6">
+      <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
@@ -80,6 +98,7 @@ export default function LoginForm() {
         </div>
       </div>
       <Button
+        className="w-full"
         onClick={async () => {
           Auth.federatedSignIn({
             provider: CognitoHostedUIIdentityProvider.Google,
