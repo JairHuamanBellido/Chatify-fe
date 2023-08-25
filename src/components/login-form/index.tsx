@@ -26,7 +26,7 @@ export default function LoginForm() {
     mutate(data, {
       onError: (error) => error,
       onSuccess: () => {
-        push("/");
+        push("/dashboard");
       },
     });
   };

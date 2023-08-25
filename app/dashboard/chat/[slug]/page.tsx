@@ -2,7 +2,6 @@
 
 import {
   GetChatRoomQuery,
-  GetUserQuery,
   Message,
   MessagesByDateQuery,
   ModelSortDirection,
@@ -10,42 +9,16 @@ import {
 import HeaderChat from "@/src/components/header-chat";
 import ListMessages from "@/src/components/list-messages";
 import SendMessageInput from "@/src/components/send-message-input";
-import { getChatRoom, getUser, messagesByDate } from "@/src/graphql/queries";
-import useCurrentUser from "@/src/hooks/useCurrentUser";
+import { getChatRoom, messagesByDate } from "@/src/graphql/queries";
 import { GraphQLQuery, graphqlOperation } from "@aws-amplify/api";
-import { useAuthenticator } from "@aws-amplify/ui-react";
 import { useQuery } from "@tanstack/react-query";
 import { API } from "aws-amplify";
-import { useEffect } from "react";
 
 export default function ChatRoomDetailedPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const { user } = useAuthenticator((context: any) => [context.user]);
-
-  const [_, setCurrentUser] = useCurrentUser();
-  useQuery({
-    queryKey: ["current-user"],
-    queryFn: async () =>
-      await API.graphql<GraphQLQuery<GetUserQuery>>(
-        graphqlOperation(getUser, {
-          id: user.getSignInUserSession()?.getIdToken()?.payload.sub,
-        })
-      ),
-
-    enabled: !!user,
-  });
-
-  useEffect(() => {
-    if (!!user) {
-      setCurrentUser({
-        currentUserId: user.getSignInUserSession()?.getIdToken()?.payload.sub,
-      });
-    }
-  }, [user, setCurrentUser]);
-
   const { isSuccess, data, isLoading } = useQuery({
     queryKey: [`chat-room-${params.slug}`],
     queryFn: async () => {

@@ -47,8 +47,8 @@ export default function ListChatRooms() {
               <TableCell>{chatroom?.admin?.name}</TableCell>
               <TableCell>
                 <Button variant={"link"}>
-                  <Link href={`/chat/${chatroom?.id}`}>Join</Link>
-                </Button>{" "}
+                  <Link href={`/dashboard/chat/${chatroom?.id}`}>Join</Link>
+                </Button>
               </TableCell>
             </TableRow>
           ))}
