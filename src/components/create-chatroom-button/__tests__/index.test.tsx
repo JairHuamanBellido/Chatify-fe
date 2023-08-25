@@ -69,9 +69,8 @@ describe("<CreateChatRoomButton />", () => {
     const createButton = screen.getByRole("button", {
       name: "Create Chat room",
     });
-    await act(() => {
-      fireEvent.click(createButton);
-    });
+
+    fireEvent.click(createButton);
 
     // Assert
     expect(screen.getByRole("dialog")).toBeInTheDocument();
@@ -97,16 +96,16 @@ describe("<CreateChatRoomButton />", () => {
     const createButton = screen.getByRole("button", {
       name: "Create Chat room",
     });
-    await act(() => {
-      fireEvent.click(createButton);
-    });
+
+    fireEvent.click(createButton);
+    
     const loadingButton = screen.getByRole("button", {
       name: "Loading",
     }) as HTMLButtonElement;
 
     // Assert
     expect(loadingButton).toBeInTheDocument();
-    expect(loadingButton.disabled).toBeTruthy();
+    expect(loadingButton).toBeDisabled();
   });
 
   it("should display an error message if fetch fails", async () => {
@@ -124,9 +123,8 @@ describe("<CreateChatRoomButton />", () => {
     const createButton = screen.getByRole("button", {
       name: "Create Chat room",
     });
-    await act(() => {
-      fireEvent.click(createButton);
-    });
+
+    fireEvent.click(createButton);
 
     // Assert
     expect(screen.getByText("Something went wrong!")).toBeInTheDocument();
@@ -147,11 +145,10 @@ describe("<CreateChatRoomButton />", () => {
     const createButton = screen.getByRole("button", {
       name: "Create Chat room",
     });
-    await act(() => {
-      fireEvent.click(createButton);
-    });
+
+    fireEvent.click(createButton);
 
     // Assert
-    expect(screen.getByText('ChatRoom successfully created'))
+    expect(screen.getByText("ChatRoom successfully created"));
   });
 });

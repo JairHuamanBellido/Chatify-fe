@@ -23,39 +23,41 @@ describe("<PasswordPolicyLabel>", () => {
 
   it("should display data attribute value when password policy is correct", () => {
     // Arrange
-    const { container } = render(
+    render(
       <PasswordPolicyLabel isCorrect={true}>
         At least 1 number
       </PasswordPolicyLabel>
     );
 
     // Act
-    const matchingContainers = container.querySelectorAll(
-      '[data-accepted-password-policy="true"]'
-    );
+    const parapgraph = screen.getByRole("complementary");
     const passwordPolicyText = screen.getByText(/At least 1 number/i);
 
     // Assert
-    expect(matchingContainers).toHaveLength(1);
+    expect(parapgraph).toBeInTheDocument();
+    expect(parapgraph).toHaveAttribute("data-accepted-password-policy", "true");
     expect(passwordPolicyText).toBeInTheDocument();
   });
 
   it("should display data attribute value when password policy is incorrect", () => {
     // Arrange
-    const { container } = render(
+    render(
       <PasswordPolicyLabel isCorrect={false}>
         At least 1 number
       </PasswordPolicyLabel>
     );
 
     // Act
-    const matchingContainers = container.querySelectorAll(
-      '[data-accepted-password-policy="false"]'
-    );
+    const parapgraph = screen.getByRole("complementary");
+
     const passwordPolicyText = screen.getByText(/At least 1 number/i);
 
     // Assert
-    expect(matchingContainers).toHaveLength(1);
+    expect(parapgraph).toBeInTheDocument();
+    expect(parapgraph).toHaveAttribute(
+      "data-accepted-password-policy",
+      "false"
+    );
     expect(passwordPolicyText).toBeInTheDocument();
   });
 });

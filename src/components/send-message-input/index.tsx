@@ -8,14 +8,13 @@ import { useForm } from "react-hook-form";
 import { ISendMessage } from "@/src/interfaces/ISendMesage";
 import { API, graphqlOperation } from "aws-amplify";
 import { createMessage } from "@/src/graphql/mutations";
+import useCurrentUser from "@/src/hooks/useCurrentUser";
 
 interface Props {
   chatRoomId: string;
 }
 export default function SendMessageInput({ chatRoomId }: Props) {
-  const { data: currentUser } = useQuery<GraphQLQuery<{ data: GetUserQuery }>>([
-    "current-user",
-  ]);
+  const [{ currentUserId }] = useCurrentUser();
 
   const { mutate, isLoading } = useMutation({
     mutationKey: ["send-message"],
@@ -24,7 +23,7 @@ export default function SendMessageInput({ chatRoomId }: Props) {
         graphqlOperation(createMessage, {
           input: {
             text: payload.text,
-            messageSenderId: currentUser?.data.getUser?.id,
+            messageSenderId: currentUserId,
             chatRoomMessagesId: chatRoomId,
             type: "Message",
             chatRoomId,
