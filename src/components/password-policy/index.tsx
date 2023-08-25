@@ -8,6 +8,7 @@ interface Props {
 export default function PasswordPolicyLabel({ isCorrect, children }: Props) {
   return (
     <TypographyMuted
+      role="complementary"
       data-accepted-password-policy={isCorrect}
       className={cn(
         {
