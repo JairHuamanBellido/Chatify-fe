@@ -40,7 +40,8 @@ export default function ListMessages({ messages, chatRoomId }: Props) {
     });
 
     return () => subscribeNewMessages.unsubscribe();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 
   return (
     <div

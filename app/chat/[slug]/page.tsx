@@ -44,7 +44,7 @@ export default function ChatRoomDetailedPage({
         currentUserId: user.getSignInUserSession()?.getIdToken()?.payload.sub,
       });
     }
-  }, [user]);
+  }, [user, setCurrentUser]);
 
   const { isSuccess, data, isLoading } = useQuery({
     queryKey: [`chat-room-${params.slug}`],

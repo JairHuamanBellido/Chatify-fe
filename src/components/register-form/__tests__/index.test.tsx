@@ -1,3 +1,5 @@
+/* eslint-disable testing-library/no-unnecessary-act */
+
 import { renderAllProviders } from "@/src/utils/renderAllProviders";
 import RegisterForm from "..";
 import { useMutation } from "@tanstack/react-query";
@@ -30,7 +32,7 @@ describe("<RegisterForm />", () => {
       isLoading: false,
       isSuccess: false,
     }));
-    const { container } = renderAllProviders(<RegisterForm />);
+    renderAllProviders(<RegisterForm />);
 
     // Act
     const nameInput = screen.getByLabelText("name") as HTMLInputElement;
@@ -40,13 +42,11 @@ describe("<RegisterForm />", () => {
       "repeat-password"
     ) as HTMLInputElement;
 
-    const passwordPolicies = container.querySelectorAll(
-      '[data-accepted-password-policy="false"]'
-    );
+    const policyTexts = screen.getAllByRole("complementary");
 
-    const submitButton = container.querySelector(
-      "button[type=submit]"
-    ) as HTMLButtonElement;
+    const submitButton = screen.getByRole("button", {
+      name: "Sign Up",
+    }) as HTMLButtonElement;
 
     // Assert
     expect(nameInput).toBeInTheDocument();
@@ -59,9 +59,9 @@ describe("<RegisterForm />", () => {
     expect(passwordInput.value).toBe("");
     expect(repeatPasswordInput.value).toBe("");
 
-    expect(passwordPolicies).toHaveLength(5);
+    expect(policyTexts).toHaveLength(5);
 
-    expect(submitButton.disabled).toBeTruthy();
+    expect(submitButton).toBeDisabled();
   });
 
   it("should be able to click on submit button after all fields were completed ", async () => {
@@ -82,7 +82,7 @@ describe("<RegisterForm />", () => {
       "repeat-password"
     ) as HTMLInputElement;
 
-    await act(async () => {
+    await act(() => {
       fireEvent.change(nameInput, { target: { value: "Jair" } });
       fireEvent.change(emailInput, {
         target: { value: "myemail@hotmail.com" },
@@ -94,7 +94,7 @@ describe("<RegisterForm />", () => {
     const submitButton = screen.getByRole("button", {
       name: "Sign Up",
     }) as HTMLButtonElement;
-    expect(submitButton.disabled).not.toBeTruthy();
+    expect(submitButton).toBeEnabled();
   });
 
   it("should not be able to click on submit button if confirm password missmatch", async () => {
@@ -114,8 +114,7 @@ describe("<RegisterForm />", () => {
     const repeatPasswordInput = screen.getByLabelText(
       "repeat-password"
     ) as HTMLInputElement;
-
-    await act(async () => {
+    await act(() => {
       fireEvent.change(nameInput, { target: { value: "Jair" } });
       fireEvent.change(emailInput, {
         target: { value: "myemail@hotmail.com" },
@@ -127,7 +126,7 @@ describe("<RegisterForm />", () => {
     const submitButton = screen.getByRole("button", {
       name: "Sign Up",
     }) as HTMLButtonElement;
-    expect(submitButton.disabled).toBeTruthy();
+    expect(submitButton).toBeDisabled();
   });
 
   it("should not be able to click on submit button if email is invalid", async () => {
@@ -160,7 +159,7 @@ describe("<RegisterForm />", () => {
     const submitButton = screen.getByRole("button", {
       name: "Sign Up",
     }) as HTMLButtonElement;
-    expect(submitButton.disabled).toBeTruthy();
+    expect(submitButton).toBeDisabled();
   });
 
   it("should display a loading text when user submitting", async () => {
@@ -197,7 +196,7 @@ describe("<RegisterForm />", () => {
 
     // Expect
     expect(screen.getByText("Please wait")).toBeInTheDocument();
-    expect(submitButton.disabled).toBeTruthy();
+    expect(submitButton).toBeDisabled();
   });
 
   it("should display an error message from sign up failure", async () => {
