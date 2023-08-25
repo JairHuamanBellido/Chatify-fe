@@ -21,4 +21,5 @@ jest.mock("@tanstack/react-query", (rest) => ({
 
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: jest.fn() }),
+  usePathname: jest.fn(),
 }));

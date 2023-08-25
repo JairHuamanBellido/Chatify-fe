@@ -11,6 +11,7 @@ import { getUser } from "@/src/graphql/queries";
 import { createUser } from "@/src/graphql/mutations";
 import useCurrentUser from "@/src/hooks/useCurrentUser";
 import { redirect, useRouter } from "next/navigation";
+import Sidebar from "@/src/components/sidebar";
 export default function DashboardLayout({
   children,
 }: {
@@ -66,9 +67,9 @@ export default function DashboardLayout({
   }
   if (authStatus === "authenticated" && !!user) {
     return (
-      <div>
-        <h1>Hello to dashboard layout</h1>
-        {children}
+      <div className="w-full h-screen relative overflow-hidden flex">
+        <Sidebar />
+        <main className="w-[calc(100%-240px)]">{children}</main>
       </div>
     );
   }
