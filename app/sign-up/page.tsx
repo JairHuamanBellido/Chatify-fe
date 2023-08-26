@@ -7,6 +7,7 @@ import { TypographyH1 } from "@/src/components/typography/h1";
 import { TypographyParagraph } from "@/src/components/typography/paragraph";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import Image from "next/legacy/image";
+import ThemeToggle from "@/src/components/theme-toggle";
 
 const titleFont = Mulish({ subsets: ["latin"] });
 
@@ -16,6 +17,9 @@ export default function SignUpPage() {
   return (
     <main className="flex h-screen relative">
       <div className="w-1/2 h-full relative">
+        <div className="absolute top-4 left-4 z-10 bg-background rounded-md">
+          <ThemeToggle />
+        </div>
         <AspectRatio className="h-screen">
           <Image
             src={URL_IMAGE}
