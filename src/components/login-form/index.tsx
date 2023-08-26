@@ -11,6 +11,7 @@ import { Auth } from "aws-amplify";
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 export default function LoginForm() {
   const { register, handleSubmit } = useForm<ISignInUser>({
     defaultValues: { email: "", password: "" },
@@ -54,6 +55,11 @@ export default function LoginForm() {
             aria-label="password"
             required
           />
+          <div className="flex items-center mt-[-12px] justify-end">
+            <Button variant={"link"}>
+              <Link role="nav" href={"/forgot-password"}>Forgot password?</Link>
+            </Button>
+          </div>
         </div>
         {isError && (
           <Alert className="mt-4" variant={"destructive"}>
