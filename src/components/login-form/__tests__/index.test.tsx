@@ -92,4 +92,19 @@ describe("<LoginForm />", () => {
     // Assert
     expect(screen.getByText("User disabled")).toBeInTheDocument();
   });
+
+  it("should display forgot password", () => {
+    // Arrange
+    mockMutation.mockImplementation(() => ({
+      mutate: jest.fn(),
+      error: { message: "User disabled" },
+      isError: true,
+      isLoading: false,
+      isSuccess: false,
+    }));
+    renderAllProviders(<LoginForm />);
+
+    // Assert
+    expect(screen.getByText("Forgot password?")).toBeInTheDocument();
+  });
 });
