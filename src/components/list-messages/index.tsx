@@ -57,7 +57,7 @@ export default function ListMessages({ messages, chatRoomId }: Props) {
           </TypographyMuted>
         </div>
       ) : (
-        <div className="flex gap-y-4 flex-col-reverse h-full w-full">
+        <div className="flex gap-y-4 overflow-y-auto flex-col-reverse h-full w-full">
           {newMessages.reverse().map((message) => (
             <ChatMessage key={message.id} message={message} />
           ))}

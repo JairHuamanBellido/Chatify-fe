@@ -34,7 +34,7 @@ export default function RecoveryPasswordContainer() {
     mutationKey: ["forgot-password"],
     mutationFn: async (payload: IRecoveryPassword) =>
       await Auth.forgotPasswordSubmit(
-        "jairhbdev@gmail.com",
+        config.email,
         payload.code,
         payload.password
       ),
