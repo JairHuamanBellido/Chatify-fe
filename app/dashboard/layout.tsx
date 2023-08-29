@@ -37,6 +37,8 @@ export default function DashboardLayout({
 
       setCurrentUser({
         currentUserId: user?.getSignInUserSession()?.getIdToken().payload.sub,
+        email: user?.getSignInUserSession()?.getIdToken().payload.email,
+        name: user?.getSignInUserSession()?.getIdToken().payload.name,
       });
 
       if (!res.data?.getUser) {

@@ -15,7 +15,7 @@ export default function NavItems() {
   const pathname = usePathname();
 
   return (
-    <nav className="mt-12">
+    <nav className="mt-12 h-full ">
       <ul className="flex flex-col gap-y-3">
         {navItems.map((navItem) => (
           <li key={`menu-${navItem.label}`}>
