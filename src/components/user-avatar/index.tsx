@@ -12,9 +12,26 @@ import {
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
 import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Auth } from "aws-amplify";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function UserAvatar() {
   const [currentUser] = useCurrentUser();
+  const [isLogOut, setIsLogOut] = useState<boolean>(false);
+  const { replace } = useRouter();
+  const signOut = () => {
+    Auth.signOut({ global: true }).then(() => {
+      setIsLogOut(true);
+    });
+  };
+
+  useEffect(() => {
+    if (isLogOut) {
+      replace("/auth");
+    }
+  }, [isLogOut]);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -50,7 +67,7 @@ export default function UserAvatar() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => signOut()}>
           <LogOut className="h-4 w-4 mr-2" />
           Log out
         </DropdownMenuItem>
