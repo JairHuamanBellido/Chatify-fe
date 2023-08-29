@@ -231,7 +231,7 @@ describe("<RegisterForm />", () => {
     expect(screen.getByText("something went wrong!")).toBeInTheDocument();
   });
 
-  it("should display a successfully message after sign up", async () => {
+  it("should display a confirm code form after sign up", async () => {
     // Arrange
     mockUseMutation.mockImplementation(() => ({
       mutate: () => null,
@@ -242,27 +242,8 @@ describe("<RegisterForm />", () => {
     }));
     renderAllProviders(<RegisterForm />);
 
-    const nameInput = screen.getByLabelText("name") as HTMLInputElement;
-    const emailInput = screen.getByLabelText("email") as HTMLInputElement;
-    const passwordInput = screen.getByLabelText("password") as HTMLInputElement;
-    const repeatPasswordInput = screen.getByLabelText(
-      "repeat-password"
-    ) as HTMLInputElement;
-
-    // Act
-    await act(async () => {
-      fireEvent.change(nameInput, { target: { value: "Jair" } });
-      fireEvent.change(emailInput, {
-        target: { value: "myemailhotmail.com" },
-      });
-      fireEvent.change(passwordInput, { target: { value: "ABCDfgh1@" } });
-      fireEvent.change(repeatPasswordInput, { target: { value: "ABCDfgh1@" } });
-    });
-
     // Expect
-    expect(
-      screen.getByText("Account was created successfully!")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Enter verification code")).toBeInTheDocument();
   });
 
   it("should display a Google Sign In Button", async () => {
