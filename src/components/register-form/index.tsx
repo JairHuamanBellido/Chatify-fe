@@ -16,12 +16,14 @@ import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { Loader2 } from "lucide-react";
 import { Auth } from "aws-amplify";
 import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
+import ConfirmAccount from "./components/confirm-account";
 
 export default function RegisterForm() {
   const {
     register,
     handleSubmit,
     watch,
+    getValues,
     formState: { isDirty, isValid },
   } = useForm<ISignUpUser>({
     defaultValues: { email: "", name: "", password: "", repeatPassword: "" },
@@ -46,6 +48,14 @@ export default function RegisterForm() {
       onError: (error) => error,
     });
   };
+  if (isSuccess) {
+    return (
+      <ConfirmAccount
+        password={getValues("password")}
+        email={getValues("email")}
+      />
+    );
+  }
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col">
@@ -130,14 +140,7 @@ export default function RegisterForm() {
             <AlertDescription>{(error as any).message ?? ""}</AlertDescription>
           </Alert>
         )}
-        {isSuccess && (
-          <Alert className="mt-4" variant={"success"}>
-            <AlertTitle>Success</AlertTitle>
-            <AlertDescription>
-              Account was created successfully!
-            </AlertDescription>
-          </Alert>
-        )}
+
         <Button
           disabled={
             !isDirty ||
