@@ -5,7 +5,7 @@ import { GraphQLQuery, graphqlOperation } from "@aws-amplify/api";
 import { CreateUserMutation, GetUserQuery } from "@/src/API";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { API } from "aws-amplify";
 import { getUser } from "@/src/graphql/queries";
 import { createUser } from "@/src/graphql/mutations";
@@ -60,6 +60,12 @@ export default function DashboardLayout({
     enabled: !!user,
   });
 
+  useEffect(() => {
+    if (authStatus === "authenticated" && !user) {
+      refresh();
+    }
+  }, [authStatus, user]);
+
   if (authStatus === "configuring") {
     return (
       <div>
@@ -80,9 +86,6 @@ export default function DashboardLayout({
     );
   }
 
-  if (authStatus === "authenticated" && !user) {
-    return refresh();
-  }
   if (authStatus === "unauthenticated") {
     return redirect("/auth");
   }
