@@ -21,7 +21,7 @@ export default function UserAvatar() {
   const [isLogOut, setIsLogOut] = useState<boolean>(false);
   const { replace } = useRouter();
   const signOut = () => {
-    Auth.signOut({ global: true }).then(() => {
+    Auth.signOut().then(() => {
       setIsLogOut(true);
     });
   };
