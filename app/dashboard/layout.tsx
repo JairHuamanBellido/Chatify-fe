@@ -28,6 +28,7 @@ export default function DashboardLayout({
 
   useQuery({
     queryKey: ["user-data"],
+    cacheTime: 0,
     queryFn: async () => {
       const res = await API.graphql<GraphQLQuery<GetUserQuery>>(
         graphqlOperation(getUser, {
