@@ -9,6 +9,7 @@ import ThemeSwitcher from "@/src/components/theme-switcher";
 import { useEffect, useState } from "react";
 import LoadingAppFullScreen from "@/src/components/loading-app-fullscreen";
 import { useTheme } from "@/src/hooks/useTheme";
+import { Toaster } from "@/src/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 Amplify.configure({ ...amplifyconfig, ssr: true });
@@ -36,6 +37,7 @@ export default function RootLayout({
             enableColorScheme
             disableTransitionOnChange
           >
+            <Toaster />
             {isMounted ? children : <LoadingAppFullScreen />}
           </ThemeProvider>
           <ThemeSwitcher />
