@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { IMenuLink } from "@/src/interfaces/IMenuLink";
-import { MessageSquare, Settings } from "lucide-react";
+import { MessageSquare, Settings, Settings2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -9,6 +9,11 @@ const navItems: IMenuLink[] = [
     href: "/dashboard",
     label: "Chats",
     icon: <MessageSquare className="text-inherit h-4 w-4 mr-2" />,
+  },
+  {
+    href: "/dashboard/settings/account",
+    label: "Settings",
+    icon: <Settings2 className="text-inherit h-4 w-4 mr-2" />,
   },
 ];
 export default function NavItems() {
