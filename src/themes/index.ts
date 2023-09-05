@@ -1,1 +1,1 @@
-export type ApplicationTheme = "default";
+export type ApplicationTheme = "default" | "yellow";
