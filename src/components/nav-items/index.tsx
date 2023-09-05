@@ -28,8 +28,8 @@ export default function NavItems() {
               aria-current={pathname === navItem.href ? "true" : "false"}
               className={cn(
                 pathname === navItem.href
-                  ? "bg-primary/5 text-primary"
-                  : "hover:bg-transparent hover:underline text-primary/60",
+                  ? "bg-primary/5 text-foreground"
+                  : "hover:bg-transparent hover:underline text-foreground/60",
                 "inline-flex py-2 px-4 w-full rounded items-center",
                 "text-sm font-medium"
               )}
