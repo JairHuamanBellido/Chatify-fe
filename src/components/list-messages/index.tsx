@@ -45,7 +45,7 @@ export default function ListMessages({ messages, chatRoomId }: Props) {
 
   return (
     <div
-      className={cn("h-[calc(100vh-192px)] p-4", {
+      className={cn("h-[calc(100vh-240px)] p-4", {
         "flex items-center justify-center": !messages || !messages.length,
       })}
     >
